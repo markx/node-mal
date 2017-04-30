@@ -5,6 +5,7 @@ const printer = require('./printer');
 const {type, nil} = require('./types');
 const { Env } = require('./env');
 const { partition } = require('./utils');
+const core = require('./core');
 
 function READ(x) {
   return reader.read_str(x);
@@ -67,10 +68,9 @@ function PRINT(x) {
 
 
 const repl_env = new Env();
-repl_env.set('+', (a, b) => a + b);
-repl_env.set('-', (a, b) => a - b);
-repl_env.set('*', (a, b) => a * b);
-repl_env.set('/', (a, b) => parseInt(a / b));
+for (let [key, val] of Object.entries(core.ns)) {
+  repl_env.set(key, val);
+}
 
 function rep(x) {
   try {
