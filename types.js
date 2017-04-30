@@ -1,7 +1,8 @@
 
 class Symbol {
   contructor(name) {
-    this.name = name;
+    this.type = 'symbol';
+    this.value = value;
   }
 }
 
