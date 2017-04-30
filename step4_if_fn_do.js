@@ -27,7 +27,7 @@ function EVAL(ast, env) {
   if (ast.length === 0) { return ast; }
 
   let [a1, ...rest] = ast;
-  let [a2, a3] = rest;
+  let [a2, a3, a4] = rest;
   switch (a1) {
     case 'def!':
       return env.set(a2, EVAL(a3, env));
@@ -44,11 +44,11 @@ function EVAL(ast, env) {
       return eval_ast(rest);
 
     case 'if':
-      const condition = EVAL(a2);
-      if (condition !== nil || condition !== false) {
-        return EVAL(a3);
+      const condition = EVAL(a2, env);
+      if (condition !== nil && condition !== false) {
+        return EVAL(a3, env);
       }
-      if (a4) { return EVAL(a4); }
+      if (a4 !== undefined) { return EVAL(a4, env); }
       return nil;
 
     case 'fn*':
