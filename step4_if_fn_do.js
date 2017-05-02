@@ -28,7 +28,7 @@ function EVAL(ast, env) {
 
   let [a1, ...rest] = ast;
   let [a2, a3, a4] = rest;
-  switch (a1) {
+  switch (type(a1) === 'symbol' && Symbol.keyFor(a1)) {
     case 'def!':
       return env.set(a2, EVAL(a3, env));
 
@@ -69,7 +69,7 @@ function PRINT(x) {
 
 const repl_env = new Env();
 for (let [key, val] of Object.entries(core.ns)) {
-  repl_env.set(key, val);
+  repl_env.set(Symbol.for(key), val);
 }
 
 function rep(x) {

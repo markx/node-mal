@@ -1,5 +1,5 @@
-const type = require('./types');
-const { Vector } = type;
+const types = require('./types');
+const { Vector } = types;
 
 function read_str(str) {
   const tokens = tokenizer(str);
@@ -65,10 +65,13 @@ function read_atom(tokens) {
   if (token === 'true') return true;
   if (token === 'false') return false;
 
-  if (token === 'nil') return type.nil;
+  if (token === 'nil') return types.nil;
+
+  if (token.length >= 2 && token[0] === '"' && token[token.length - 1] === '"')
+    return token.slice(1, -1);
 
   // symbol
-  return token;
+  return Symbol.for(token);
 
 }
 

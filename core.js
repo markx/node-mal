@@ -34,6 +34,7 @@ const ns = {
 function equal(a, b) {
   if (type(a) !== type(b)) return false;
   if (type(a) === 'list' || type(a) === 'vector') {
+    if (a.length !== b.length) return false;
     for (let i = 0; i < a.length; i++) {
       if (!equal(a[i], b[i])) return false;
     }
