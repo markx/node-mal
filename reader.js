@@ -1,5 +1,5 @@
 const types = require('./types');
-const { Vector } = types;
+const { Vector, Map } = types;
 
 function read_str(str) {
   const tokens = tokenizer(str);
@@ -22,6 +22,7 @@ function read_form(tokens) {
 
   if (tokens[0] === '(') { return read_list(tokens); }
   if (tokens[0] === '[') { return read_vector(tokens); }
+  if (tokens[0] === '{') { return read_map(tokens); }
   return read_atom(tokens);
 }
 
@@ -54,6 +55,24 @@ function read_vector(tokens) {
     }
 
     vector.push(read_form(tokens))
+  }
+}
+
+function read_map(tokens) {
+  let map = new Map();
+  tokens.shift()
+
+  while (true) {
+    if (tokens.length <= 2 && tokens[0] !== '}' || tokens[1] === '}') { throw 'parse map error'; }
+
+    if (tokens[0] === '}') {
+      tokens.shift();
+      return map;
+    }
+
+    let key = read_form(tokens);
+    let val = read_form(tokens);
+    map.set(key, val);
   }
 }
 
