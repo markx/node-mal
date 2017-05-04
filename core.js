@@ -28,7 +28,7 @@ const ns = {
   '<': (a, b) => a < b,
   '>': (a, b) => a > b,
   '<=': (a, b) => a <= b,
-  '<=': (a, b) => a <= b,
+  '>=': (a, b) => a >= b,
 };
 
 function equal(a, b) {

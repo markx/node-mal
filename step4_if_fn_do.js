@@ -41,7 +41,7 @@ function EVAL(ast, env) {
       return EVAL(a3, letEnv);
 
     case 'do':
-      return eval_ast(rest);
+      return eval_ast(rest, env).slice(-1).pop();
 
     case 'if':
       const condition = EVAL(a2, env);
