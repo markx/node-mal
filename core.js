@@ -8,7 +8,7 @@ const ns = {
   '/': (a, b) => parseInt(a / b),
 
   prn(data) {
-    pr_str(data);
+    console.log(pr_str(data));
     return nil;
   },
   list(...args) {
@@ -22,6 +22,7 @@ const ns = {
   },
 
   count(list) {
+    if (list === nil) { return 0; }
     return list.length;
   },
   '=': equal,

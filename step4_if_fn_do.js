@@ -14,6 +14,7 @@ function READ(x) {
 function eval_ast(ast, env) {
   switch (type(ast)) {
     case 'list':
+    case 'vector':
       return ast.map(each => EVAL(each, env));
     case 'symbol':
       return env.get(ast);
