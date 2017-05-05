@@ -23,7 +23,7 @@ class Vector extends Array {
   }
 
   toString() {
-    return `[${super.toString()}]`;
+    return `[${this.join(' ')}]`;
   }
 }
 

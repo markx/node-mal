@@ -18,7 +18,7 @@ function rep(x) {
   try {
     return PRINT(EVAL(READ(x)));
   } catch (e) {
-    return 'error';
+    return e;
   }
 }
 

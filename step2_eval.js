@@ -13,7 +13,7 @@ function eval_ast(ast, env) {
     case 'list':
       return ast.map(each => EVAL(each, env));
     case 'symbol':
-      return env[ast];
+      return env[Symbol.keyFor(ast)];
     default:
       return ast;
   }

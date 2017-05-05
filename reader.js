@@ -31,7 +31,7 @@ function read_list(tokens) {
   tokens.shift()
 
   while (true) {
-    if (!tokens) { throw 'parse list error'; }
+    if (tokens.length === 0) { throw 'expected )'; }
 
     if (tokens[0] === ')') {
       tokens.shift();
@@ -47,7 +47,7 @@ function read_vector(tokens) {
   tokens.shift()
 
   while (true) {
-    if (!tokens) { throw 'parse vector error'; }
+    if (tokens.length === 0) { throw 'expected ]'; }
 
     if (tokens[0] === ']') {
       tokens.shift();
@@ -63,7 +63,7 @@ function read_map(tokens) {
   tokens.shift()
 
   while (true) {
-    if (tokens.length <= 2 && tokens[0] !== '}' || tokens[1] === '}') { throw 'parse map error'; }
+    if (tokens.length <= 2 && tokens[0] !== '}' || tokens[1] === '}') { throw 'expected }'; }
 
     if (tokens[0] === '}') {
       tokens.shift();

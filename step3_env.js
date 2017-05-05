@@ -13,6 +13,7 @@ function READ(x) {
 function eval_ast(ast, env) {
   switch (type(ast)) {
     case 'list':
+    case 'vector':
       return ast.map(each => EVAL(each, env));
     case 'symbol':
       return env.get(ast);
@@ -22,12 +23,12 @@ function eval_ast(ast, env) {
 }
 
 function EVAL(ast, env) {
-  if (!Array.isArray(ast)) { return eval_ast(ast, env); }
+  if (type(ast) !== 'list') { return eval_ast(ast, env); }
   if (ast.length === 0) { return ast; }
 
   let [a1, ...args] = ast;
   let [a2, a3] = args;
-  switch (a1) {
+  switch (type(a1) === 'symbol' && Symbol.keyFor(a1)) {
     case 'def!':
       return env.set(a2, EVAL(a3, env));
 
@@ -49,11 +50,11 @@ function PRINT(x) {
 }
 
 
-const repl_env = new Env(null);
-repl_env.set('+', (a, b) => a + b);
-repl_env.set('-', (a, b) => a - b);
-repl_env.set('*', (a, b) => a * b);
-repl_env.set('/', (a, b) => parseInt(a / b));
+const repl_env = new Env();
+repl_env.set(Symbol.for('+'), (a, b) => a + b);
+repl_env.set(Symbol.for('-'), (a, b) => a - b);
+repl_env.set(Symbol.for('*'), (a, b) => a * b);
+repl_env.set(Symbol.for('/'), (a, b) => parseInt(a / b));
 
 function rep(x) {
   try {

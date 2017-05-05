@@ -7,6 +7,7 @@ function pr_str(data) {
 
   if (type(data) === 'function') { return "#<function>"; }
   if (type(data) === 'string') { return `"${data}"`; }
+  if (type(data) === 'symbol') { return Symbol.keyFor(data); }
 
   return data.toString();
 }
