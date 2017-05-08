@@ -63,6 +63,7 @@ function type(data) {
   if (typeof data === 'string') return 'string';
   if (data instanceof Vector) return 'vector';
   if (data instanceof Map) return 'map';
+  if (data instanceof TCOFunction) return 'tco_function';
   if (data === nil) return 'nil';
   if (Array.isArray(data)) return 'list';
   return 'symbol';
@@ -73,10 +74,23 @@ const nil = {
   toString() { return 'nil'; }
 };
 
+class TCOFunction {
+  constructor(ast, params, env, fn) {
+    this.ast = ast;
+    this.params = params;
+    this.env = env;
+    this.fn = fn;
+  }
+
+  toString() {
+   return "#<function>";
+  }
+}
 
 module.exports = {
   type,
   nil,
   Vector,
   Map,
+  TCOFunction,
 };
