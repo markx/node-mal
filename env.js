@@ -14,8 +14,12 @@ class Env {
   }
 
   find(key) {
-    if (key in this.data) return this;
-    if (this.outer) return this.outer.find(key);
+    let env = this;
+    while (env) {
+      if (key in env.data) { return env; }
+      env = env.outer
+    }
+    return null
   }
 
   get(key) {
